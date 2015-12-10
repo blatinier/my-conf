@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import hashlib
 import json
@@ -119,10 +120,14 @@ def get_optelo_audiotel_ca():
                     "month": ca_month})
 
 
-def audiotel_ca(namedcmd):
+def audiotel_ca():
     ca = dict()
     ca['dolead'] = get_dolead_audiotel_ca()
     ca['optelo'] = get_optelo_audiotel_ca()
     ca['mixway'] = get_mixway_audiotel_ca()
     ca['total'] = sum(ca.values(), Counter())
     return json.dumps({k: dict(v) for k, v in ca.items()})
+
+
+if __name__ == "__main__":
+    print(audiotel_ca())

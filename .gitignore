@@ -116,6 +116,7 @@ texmf
 .uim.d
 .vagrant.d
 .venvs
+.vim
 .vim-fuf-data
 .viminfo
 .vimperator
