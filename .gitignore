@@ -140,3 +140,5 @@ officiels
 vidz
 .terminfo
 course
+.i3/py3status_plugins/config.yml
+.i3/py3status_plugins/lockfile
