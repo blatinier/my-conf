@@ -90,6 +90,7 @@ texmf
 .mplayer
 .mysql
 .mysql_history
+.ncmpcpp
 .npm
 .npmrc
 .pdepend
@@ -130,3 +131,12 @@ texmf
 Téléchargements
 gui_rpc_auth.cfg
 git
+databases
+torrent
+www
+bin/config.yml
+management
+officiels
+vidz
+.terminfo
+course
