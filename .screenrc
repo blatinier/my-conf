@@ -6,4 +6,3 @@ hardstatus alwayslastline "%{bw}[%H] [%?%-Lw%?%{wb}%n*%f %t%{bw}%?%+Lw%?]%=%{bw}
 defscrollback 10000
 # Select whether you want to see the copyright notice during startup:
 startup_message off
-
