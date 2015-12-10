@@ -1,0 +1,6 @@
+if [ $# -eq 2 ]
+then
+    ssh -A `_ssh-aws $1` $2
+else
+    ssh -A `_ssh-aws $1`
+fi

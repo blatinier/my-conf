@@ -1,0 +1,27 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Transform a sentence into a tracetrace style gibberish
+"""
+import argparse
+parser = argparse.ArgumentParser(description='Talk to François')
+parser.add_argument('sentence', help="Sentence to translate")
+sentence = parser.parse_args().sentence
+
+from unidecode import unidecode
+import re
+
+sentence = unidecode(sentence.decode('utf-8')).lower()
+sentence = re.sub(r"[^a-z0-9]", r" ", sentence)
+
+exc = "".join([w.capitalize() for w in sentence.split()])
+exec("""class %s(Exception): pass""" % exc)
+funcs_to_create = sentence.split()
+for i, f in enumerate(funcs_to_create):
+    try:
+        exec("""def %s(): %s()""" % (f, funcs_to_create[i + 1]))
+    except IndexError:
+        exec("""def %s(): raise %s()""" % (f, exc))
+
+exec("def Francois(): %s()" % funcs_to_create[0])
+exec("Francois()")
