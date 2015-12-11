@@ -128,6 +128,7 @@ texmf
 .xsession-errors
 .xsession-errors.old
 .yankring_history_v2.txt
+.zcompdump
 Téléchargements
 gui_rpc_auth.cfg
 git

@@ -120,14 +120,38 @@ def get_optelo_audiotel_ca():
                     "month": ca_month})
 
 
-def audiotel_ca():
+def audiotel_ca(output_format="json"):
     ca = dict()
     ca['dolead'] = get_dolead_audiotel_ca()
     ca['optelo'] = get_optelo_audiotel_ca()
     ca['mixway'] = get_mixway_audiotel_ca()
     ca['total'] = sum(ca.values(), Counter())
-    return json.dumps({k: dict(v) for k, v in ca.items()})
+    if output_format == "python":
+        return ca
+    else:
+        return json.dumps({k: dict(v) for k, v in ca.items()})
+
+
+def audiotel_ca_formatted():
+    ca_data = audiotel_ca(output_format="python")
+    month = datetime.now().strftime("%b")[0:3].capitalize()
+    k = "today"
+    today_str = "Today: %.2f (D:%.2f, O:%.2f, M:%.2f)" % (ca_data["total"].get(k, 0),
+                                                          ca_data["dolead"].get(k, 0),
+                                                          ca_data["optelo"].get(k, 0),
+                                                          ca_data["mixway"].get(k, 0))
+    k = "month"
+    month_str = "%s: %.2f (D:%.2f, O:%.2f, M:%.2f)" % (month,
+                                                       ca_data["total"].get(k, 0),
+                                                       ca_data["dolead"].get(k, 0),
+                                                       ca_data["optelo"].get(k, 0),
+                                                       ca_data["mixway"].get(k, 0))
+    return today_str + " | " + month_str
 
 
 if __name__ == "__main__":
-    print(audiotel_ca())
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "formatted":
+        print(audiotel_ca_formatted())
+    else:
+        print(audiotel_ca())
