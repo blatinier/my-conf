@@ -39,16 +39,16 @@ def audiotel_ca(namedcmd):
     url = CONFIG['mdt_ca_url']
     ca_data = requests.get(url).json()
     k = "today"
-    today_str = "Today: %.2f (D:%.2f, O:%.2f, M:%.2f)" % (ca_data["total"][k],
-                                                          ca_data["dolead"][k],
-                                                          ca_data["optelo"][k],
-                                                          ca_data["mixway"][k])
+    today_str = "Today: %.2f (D:%.2f, O:%.2f, M:%.2f)" % (ca_data["total"].get(k, 0),
+                                                          ca_data["dolead"].get(k, 0),
+                                                          ca_data["optelo"].get(k, 0),
+                                                          ca_data["mixway"].get(k, 0))
     k = "month"
     month_str = "%s: %.2f (D:%.2f, O:%.2f, M:%.2f)" % (month,
-                                                       ca_data["total"][k],
-                                                       ca_data["dolead"][k],
-                                                       ca_data["optelo"][k],
-                                                       ca_data["mixway"][k])
+                                                       ca_data["total"].get(k, 0),
+                                                       ca_data["dolead"].get(k, 0),
+                                                       ca_data["optelo"].get(k, 0),
+                                                       ca_data["mixway"].get(k, 0))
     return {"full_text": today_str + " | " + month_str,
             "name": "audiotel",
             "instance": namedcmd}

@@ -111,7 +111,7 @@ alias gitka='LANG=C gitk --all &'      # gitk fuck yeah
 alias tig='tig --all'
 alias please='sudo $(fc -ln -1)'
 
-export PYTHONPATH=src
+#export PYTHONPATH=src
 source /usr/bin/virtualenvwrapper.sh
 alias clean='find . -name "*.pyc" -delete && find . -name "*.orig" -delete'
 alias swear='espeak -v french -a 500 -s 145'
