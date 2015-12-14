@@ -38,7 +38,7 @@ def get_dolead_audiotel_ca():
     ca_month = 0
     ca_today = 0
     for l in lines.splitlines()[1:]:
-        _, _, dt, _, _, _, ca = unidecode(l).split(';')[:7]
+        _, _, dt, _, _, _, ca = unidecode(l.decode('utf-8')).split(';')[:7]
         ca = float(re.sub(r"([1-9.]+).*", r"\1", ca, flags=re.UNICODE)[:-1])
         ca_month += ca
         if now.strftime("%Y-%m-%d") == dt[:10]:
@@ -122,7 +122,12 @@ def get_optelo_audiotel_ca():
 
 def audiotel_ca(output_format="json"):
     ca = dict()
+    tries = 0
     ca['dolead'] = get_dolead_audiotel_ca()
+    # Retry 2 times on 0 CA for the month
+    while ca["dolead"].get("month", 0) == 0 and tries != 2:
+        ca['dolead'] = get_dolead_audiotel_ca()
+        tries += 1
     ca['optelo'] = get_optelo_audiotel_ca()
     ca['mixway'] = get_mixway_audiotel_ca()
     ca['total'] = sum(ca.values(), Counter())
