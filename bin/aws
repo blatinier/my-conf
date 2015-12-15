@@ -34,7 +34,7 @@ if ":" in host:
 
 else:
     try:
-        print(conn_strings[host.lower()],)
+        print(conn_strings[host.lower()])
     except KeyError:
         print("Available hosts: ")
         from pprint import pprint
