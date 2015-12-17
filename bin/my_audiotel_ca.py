@@ -39,7 +39,7 @@ def get_dolead_audiotel_ca():
     ca_today = 0
     for l in lines.splitlines()[1:]:
         _, _, dt, _, _, _, ca = unidecode(l.decode('utf-8')).split(';')[:7]
-        ca = float(re.sub(r"([1-9.]+).*", r"\1", ca, flags=re.UNICODE)[:-1])
+        ca = float(re.sub(r"([1-9.]+).*", r"\1", ca, flags=re.UNICODE))
         ca_month += ca
         if now.strftime("%Y-%m-%d") == dt[:10]:
             ca_today += ca

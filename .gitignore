@@ -148,3 +148,5 @@ course
 *.JPG
 *.key
 scripts
+tmp*
+*.tmp
