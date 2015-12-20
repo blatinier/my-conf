@@ -4,7 +4,6 @@
 screen -t Toulouse mcabber
 screen -t Dolead mcabber -f .mcabberrc_durable
 screen -t GTD vim -O $HOME/.vim/todo.agtd $HOME/course/stat $HOME/course/analysis
-screen -t MPD ncmpcpp
 backtick 2 0 30 cat $HOME/www/annuaires/mondevistravaux.fr/my-ca/audiotel-formatted
 hardstatus alwayslastline "%{bw}[%H] [%?%-Lw%?%{wb}%n*%f %t%{bw}%?%+Lw%?]%=%{bw} [%2`] [%1`] [%c:%s] [%l]" # modified from http://lists.gnu.org/archive/html/screen-users/2007-08/msg00008.html
 # Set the scrollback length:
