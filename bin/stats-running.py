@@ -1,7 +1,7 @@
 import sys
 from ascii_graph import Pyasciigraph
 from collections import OrderedDict
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from tabulate import tabulate
 
 
@@ -11,7 +11,7 @@ def main(in_file, out_file):
         for l in fh.readlines():
             if not l.strip():
                 continue
-            date, dist, speed, cal = l.strip().split(";")
+            date, dist, speed, cal, where = l.strip().split(";")
             dist = float(dist)
             date = datetime.strptime(date, "%Y-%m-%d")
             stats[date] = dist
