@@ -1,0 +1,2 @@
+#!/bin/sh
+mencoder -vf rotate=1 -o $1.right -oac copy -ovc lavc $1

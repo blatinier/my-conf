@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+# -*- encoding: utf8 -*-
+import argparse
+import Image
+import os
+
+parser = argparse.ArgumentParser(description='Convertir des images en noir et blanc.')
+parser.add_argument('mydir', nargs=1)
+args = parser.parse_args()
+my_dir = args.mydir[0]
+try:
+    lsdir = os.listdir(my_dir)
+    total = len(lsdir)
+    for i, my_image in enumerate(lsdir):
+        my_image = os.path.join(my_dir, my_image)
+        print "[%d/%d]Conversion en N&B de %s" % (i, total, my_image)
+        im = Image.open(my_image).convert("L")
+        im.save(my_image)
+except OSError: 
+    print "Le dossier donné n'existe pas."
