@@ -32,7 +32,7 @@ def main(in_file, out_file):
     report_data['Avg km/day'] = round(total_km / number_of_days, 2)
     report_data['Avg km/week'] = round(report_data['Avg km/day'] * 7, 2)
 
-    graph_data = sorted(([(d.strftime("%Y-%m-%d"), v) for d, v in stats.items()]))
+    graph_data = sorted([(d.strftime("%Y-%m-%d"), v) for d, v in stats.items()], reverse=True)
     graph = Pyasciigraph().graph("Progress", graph_data)
     with open(out_file, "w+") as fh:
         fh.write(tabulate([report_data.keys(),
