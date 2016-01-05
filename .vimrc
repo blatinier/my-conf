@@ -392,3 +392,17 @@ set wildmode=list:longest
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 
 set wrap
+
+function! Insert_ipdb()
+    let task_line_no = line ('.')
+    let line         = getline (task_line_no)
+    let whitespaces  = matchstr (line,'^\s\+')
+
+    let entry = whitespaces."import ipdb; ipdb.set_trace();"
+
+    " Insert new project line
+    call append(task_line_no, entry)
+endfunction
+command IP call Insert_ipdb()
+
+
