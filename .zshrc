@@ -4,8 +4,8 @@ SAVEHIST=10000
 # Don't overwrite, append!
 setopt APPEND_HISTORY
 
-# Killer: share history between multiple shells
-setopt SHARE_HISTORY
+# Killer: share history between multiple shells ← Hate it!
+# setopt SHARE_HISTORY
 
 # Pretty    Obvious.  Right?
 setopt HIST_REDUCE_BLANKS
