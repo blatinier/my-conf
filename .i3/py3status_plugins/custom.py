@@ -29,7 +29,8 @@ def jenkins_build(jobName):
         culprits = ": (" + ", ".join(names[0:1]) + ", ...)"
     else:
         culprits = ""
-    return {'full_text': buildStatusJson['fullDisplayName'] + culprits,
+    # Yep, unused culprits because bar is too small
+    return {'full_text': buildStatusJson['fullDisplayName'],
             'color': color, 'name': "jenkins_%s" % jobName,
             'instance': buildStatusJson['url']}
 
