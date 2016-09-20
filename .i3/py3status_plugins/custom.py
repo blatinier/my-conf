@@ -11,6 +11,8 @@ CONFIG = yaml.load(open(SCRIPT_ROOT + "/config.yml", "r"))
 
 def jenkins_build(jobName):
     """Get Jenkins build state"""
+    if 'jenkins_url' not in CONFIG:
+        return {}
     jenkinsUrl = CONFIG['jenkins_url']
     jenkinsStream = requests.get(jenkinsUrl + jobName + "/lastBuild/api/json")
     buildStatusJson = json.loads(jenkinsStream.content.decode("utf-8"))
@@ -29,7 +31,8 @@ def jenkins_build(jobName):
         culprits = ": (" + ", ".join(names[0:1]) + ", ...)"
     else:
         culprits = ""
-    return {'full_text': buildStatusJson['fullDisplayName'] + culprits,
+    # Yep, unused culprits because bar is too small
+    return {'full_text': buildStatusJson['fullDisplayName'],
             'color': color, 'name': "jenkins_%s" % jobName,
             'instance': buildStatusJson['url']}
 

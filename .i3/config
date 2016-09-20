@@ -150,7 +150,7 @@ bar {
 
 assign [class="Thunderbird"] → 1
 assign [class="Firefox"] → 3
-assign [class="Chromium"] → 9
+assign [class="(?i)Chrom"] → 9
 assign [class="boincmgr"] → 0
 
 exec firefox
