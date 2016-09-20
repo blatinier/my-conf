@@ -47,20 +47,27 @@ def get_dolead_audiotel_ca():
                     "month": round(ca_month, 2)})
 
 
-def get_mixway_audiotel_ca():
+def get_mixway_audiotel_ca(month=None, year=None):
     api_key = CONFIG['mixway_api_token']
     api_url = 'http://webvoice.newtech.fr/poolnum/get_cdr'
     uri = '?client=%s&date=%s%s%d&callernum=true&dialstate=true&withtag=true' \
           '&withbill=true'
 
-    year = date.today().year
-    month = str(date.today().month).zfill(2)
+    if not year:
+        year = date.today().year
+    else:
+        year = int(year)
+    if not month:
+        month = str(date.today().month).zfill(2)
+    else:
+        month = str(int(month)).zfill(2)
     today = date.today().day
     nb_call_month = 0
     nb_call_today = 0
     for int_day in range(1, today + 1):
         day = str(int_day).zfill(2)
-        r = requests.get((api_url + uri) % (api_key, day, month, year)).json()
+        r = requests.get((api_url + uri) % (api_key, day, month, year))
+        r = r.json()
         for call in r['cdr']:
             if call['billed']:
                 nb_call_month += 1
@@ -120,7 +127,10 @@ def get_optelo_audiotel_ca():
                     "month": ca_month})
 
 
-def audiotel_ca(output_format="json"):
+def audiotel_ca(output_format="json", month=None, year=None):
+    if month:
+        print("%.2f" % get_mixway_audiotel_ca(month, year)['month'])
+        return
     ca = dict()
     tries = 0
     ca['dolead'] = get_dolead_audiotel_ca()
@@ -155,8 +165,16 @@ def audiotel_ca_formatted():
 
 
 if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1 and sys.argv[1] == "formatted":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output_format', help='Output format, default is json. Can be "string"')
+    parser.add_argument('--month', nargs="?", help='Give the month for which you want to see CA (1-12). Output forced to "string"')
+    parser.add_argument('--year', nargs="?", default=datetime.now().year,
+                        help='Give the yearfor which you want to see CA (2015-...). Output forced to "string"')
+    args = parser.parse_args()
+    if args.month:
+        audiotel_ca(month=args.month, year=args.year)
+    elif args.output_format == "string":
         print(audiotel_ca_formatted())
     else:
         print(audiotel_ca())
