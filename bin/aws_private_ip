@@ -20,12 +20,10 @@ conn_strings = {}
 failures = []
 for r in reservation:
     for i in r.instances:
-        if 'Name' in i.tags and i.state == "running":
-            trace = "Execute '%s' on %s" % (args.command, i.tags['Name'])
-            print("=" * len(trace))
-            print(trace)
+        if 'Name' in i.tags and "billing" not in i.tags['Name'].lower() and i.state == "running" \
+          and "mongo" not in i.tags['Name'].lower():
             try:
-                print(subprocess.check_output(["ssh", "-A", "admin@nagios.dolead.com", "ssh -o StrictHostKeyChecking=no %s '%s'" % (i.private_dns_name, args.command)]))
+                print("%s %s" % (i.private_ip_address, i.tags['Name']))
             except Exception:
                 failures.append(i)
 

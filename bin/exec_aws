@@ -5,6 +5,7 @@ import os
 import subprocess
 import yaml
 parser = argparse.ArgumentParser(description='Execute a command on EC2')
+parser.add_argument('match_name', help='String the ec2 name should contain to exec commande.')
 parser.add_argument('command', help='Command to execute on all EC2.')
 args = parser.parse_args()
 
@@ -20,12 +21,11 @@ conn_strings = {}
 failures = []
 for r in reservation:
     for i in r.instances:
-        if 'Name' in i.tags and i.state == "running":
-            trace = "Execute '%s' on %s" % (args.command, i.tags['Name'])
-            print("=" * len(trace))
-            print(trace)
+        if i.state == "running" and args.match_name in i.tags['Name']:
+            print("Execute '%s' on %s" % (args.command, i.tags['Name']))
             try:
-                print(subprocess.check_output(["ssh", "-A", "admin@nagios.dolead.com", "ssh -o StrictHostKeyChecking=no %s '%s'" % (i.private_dns_name, args.command)]))
+                print(subprocess.check_output(["ssh", i.public_dns_name,
+                                               args.command]))
             except Exception:
                 failures.append(i)
 

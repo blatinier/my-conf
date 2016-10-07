@@ -1,0 +1,1 @@
+python -m cProfile -o profile.pstats $1.py && gprof2dot -f pstats profile.pstats | dot -Tsvg -o $1.svg && eog $1.svg

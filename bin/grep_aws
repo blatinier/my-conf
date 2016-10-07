@@ -1,0 +1,3 @@
+#!/bin/zsh
+server_list=`aws-list $1 | cut -d";" -f2 | tr '\n' ',' | sed "s/,$//"`
+pdsh -w $server_list sudo grep -nirE $2 $3

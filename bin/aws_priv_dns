@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+import argparse
+import boto.ec2
+import os
+import yaml
+
+parser = argparse.ArgumentParser(description='Connect to instance EC2')
+parser.add_argument('ec2_name', help='EC2 to connect to.')
+host = parser.parse_args().ec2_name
+
+
+SCRIPT_ROOT = os.path.dirname(os.path.realpath(__file__))
+CONFIG = yaml.load(open(SCRIPT_ROOT + "/config.yml", "r"))
+kid = CONFIG['aws']['key_id']
+secret = CONFIG['aws']['secret']
+conn = boto.ec2.connect_to_region('eu-west-1', aws_access_key_id=kid,
+                                  aws_secret_access_key=secret)
+
+reservation = conn.get_all_instances()
+conn_strings = {}
+for r in reservation:
+    for i in r.instances:
+        try:
+            conn_strings[i.tags['Name'].lower()] = i.private_dns_name
+        except Exception:
+            pass
+if ":" in host:
+    host = host.split(":")
+    conn_string = conn_strings[host[0].lower()].strip()
+    if len(host) > 1:
+        print(conn_string + ":" + ":".join(host[1:]),)
+    else:
+        print(conn_string + ":")
+
+else:
+    try:
+        print(conn_strings[host.lower()])
+    except KeyError:
+        print("Available hosts: ")
+        from pprint import pprint
+        pprint(conn_strings)
+
