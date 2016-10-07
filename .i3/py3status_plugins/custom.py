@@ -11,6 +11,8 @@ CONFIG = yaml.load(open(SCRIPT_ROOT + "/config.yml", "r"))
 
 def jenkins_build(jobName):
     """Get Jenkins build state"""
+    if 'jenkins_url' not in CONFIG:
+        return {}
     jenkinsUrl = CONFIG['jenkins_url']
     jenkinsStream = requests.get(jenkinsUrl + jobName + "/lastBuild/api/json")
     buildStatusJson = json.loads(jenkinsStream.content.decode("utf-8"))

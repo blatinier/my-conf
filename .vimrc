@@ -44,7 +44,7 @@ Bundle 'mattn/emmet-vim'
 
 "
 " Code helpers for vim
-Bundle 'davidhalter/jedi-vim'
+"Bundle 'davidhalter/jedi-vim'
 
 " Code checkers for vim
 Bundle 'scrooloose/syntastic'
@@ -85,9 +85,9 @@ Bundle 'garbas/vim-snipmate'
 "Bundle 'fisadev/vim-isort'
 
 " Python code checker
-Bundle 'pyflakes.vim'
+"Bundle 'pyflakes.vim'
 
-let g:pyflakes_builtins = ["_"]
+"let g:pyflakes_builtins = ["_"]
 
 
 " Search results counter
@@ -217,10 +217,10 @@ ca w!! w !sudo tee "%"
 
 " old autocomplete keyboard shortcut
 imap <C-J> <C-X><C-O>
-let g:jedi#completions_enabled = 0
+"let g:jedi#completions_enabled = 0
 imap <c-space> <C-R>=RopeCodeAssistInsertMode()<CR>"
 
-let g:jedi#popup_on_dot = 0
+"let g:jedi#popup_on_dot = 0
 
 filetype on
 autocmd FileType make setlocal noexpandtab
@@ -375,7 +375,7 @@ nmap ,D :tab split<CR>:RopeGotoDefinition<CR>
 nmap ,o :RopeFindOccurrences<CR>
 
 " don't let pyflakes allways override the quickfix list
-let g:pyflakes_use_quickfix = 0
+"let g:pyflakes_use_quickfix = 0
 
 " tabman shortcuts
 let g:tabman_toggle = 'tl'
