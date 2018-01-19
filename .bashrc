@@ -1,8 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-zsh
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -37,16 +34,16 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
@@ -88,9 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -l'
 alias la='ls -A'
-alias l='ls -CF'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -98,3 +93,48 @@ alias l='ls -CF'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
+alias :q="exit"
+alias ..="cd .."
+alias cd..="cd .."
+alias sl="ls"
+alias l="ls"
+alias s="ls"
+alias ks="ls"
+alias lks="ls"
+alias kls="ls"
+alias ms="ls"
+alias lms="ls"
+alias ls='ls --color'
+alias ll='ls -l'
+alias lla='ls -al'
+alias llh='ls -hl'
+alias llha='ls -ahl'
+alias vi='vim'
+alias cim="vim"
+alias bim="vim"
+alias vul="vim"
+alias voù="vim"
+alias cleanlatex='rm -f *.toc(N) *.aux(N) *.log(N)'
+alias jh='hg'
+alias jg='hg'
+alias radioMoi="mplayer -cache 500 http://kimsufi-ng.latinier.fr:8000"
+alias gitlog="git log --oneline --decorate --graph --color"
+export SVN_EDITOR=vim
+export EDITOR=vim
+export PYTHONSTARTUP=~/.pythonrc
+alias gitka='LANG=C gitk --all &'      # gitk fuck yeah
+alias tig='tig --all'
+alias please='sudo $(fc -ln -1)'
+
+export PATH=$PATH:/home/benoit/bin
+#export PYTHONPATH=src
+source /usr/bin/virtualenvwrapper.sh
+alias clean='find . -name "*.pyc" -delete && find . -name "*.orig" -delete'
+alias swear='espeak -v french -a 500 -s 145'
+
+# copy with a progress bar.
+alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
+alias zero="cd /home/benoit/projects/objectifzero/ && source venv/bin/activate && cd src"
+alias zerodj="cd /home/benoit/projects/objectifzero/ && source venv/bin/activate && cd src && ./manage.py runserver 8060"
+alias zeroyarn="cd /home/benoit/projects/objectifzero/ && source venv/bin/activate && yarn run dev"
