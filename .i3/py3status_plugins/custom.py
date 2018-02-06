@@ -67,10 +67,6 @@ def mk_status(namedcmd):
 
 class Py3status:
     audiotel = mk_status("audiotel")
-    jenkins_cf = mk_status("CampaignFactory")
-    jenkins_bidding = mk_status("Bidding")
-    jenkins_corev3 = mk_status("CoreV3")
-    jenkins_statistic = mk_status("IntegrationTests")
 
     def on_click(self, json, i3status_config, event):
         import os
